@@ -1,38 +1,31 @@
 <!DOCTYPE html>
-<html lang="it">
+<html>
 <head>
   <meta charset="UTF-8">
   <title>Dati dinamici</title>
-  <style>
-    #contenitore {
-      position: absolute;
-      right: 20px;
-      top: 20px;
-      border: 1px solid black;
-      padding: 10px;
-      width: 200px;
-    }
-  </style>
 </head>
 <body>
 
-  <h3>Inserisci i tuoi dati</h3>
+  <h2>Inserisci i tuoi dati</h2>
 
-  Nome: <input id="nome"><br>
-  Cognome: <input id="cognome"><br>
-  Indirizzo: <input id="indirizzo"><br><br>
+  Nome: <input type="text" id="nome"><br><br>
+  Cognome: <input type="text" id="cognome"><br><br>
+  Indirizzo: <input type="text" id="indirizzo"><br><br>
 
-  <button onclick="mostraDati()">Mostra dati</button>
+  <button onclick="mostra()">Mostra dati</button>
 
-  <div id="contenitore"></div>
+  <div id="contenitore" style="border:1px solid black; padding:10px; width:300px; float:right;">
+    <h3>Dati inseriti:</h3>
+    <p id="risultato"></p>
+  </div>
 
   <script>
-    function mostraDati() {
+    function mostra() {
       let nome = document.getElementById("nome").value;
       let cognome = document.getElementById("cognome").value;
       let indirizzo = document.getElementById("indirizzo").value;
 
-      document.getElementById("contenitore").innerHTML =
+      document.getElementById("risultato").innerHTML =
         "Nome: " + nome + "<br>" +
         "Cognome: " + cognome + "<br>" +
         "Indirizzo: " + indirizzo;
@@ -41,4 +34,3 @@
 
 </body>
 </html>
-
