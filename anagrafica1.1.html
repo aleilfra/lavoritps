@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Anagrafica Utente</title>
+  <style>
+    body {
+      font-family: Arial;
+      margin: 40px;
+    }
+    input {
+      display: block;
+      margin-bottom: 10px;
+      padding: 5px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 8px 12px;
+    }
+    #risultato {
+      margin-top: 20px;
+      border: 1px solid #333;
+      padding: 10px;
+      width: 350px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Inserisci i dati dell'utente</h2>
+
+  <label>Nome:</label>
+  <input type="text" id="nome">
+
+  <label>Cognome:</label>
+  <input type="text" id="cognome">
+
+  <label>Indirizzo:</label>
+  <input type="text" id="indirizzo">
+
+  <label>Città:</label>
+  <input type="text" id="citta">
+
+  <label>CAP:</label>
+  <input type="text" id="cap">
+
+  <label>Data di nascita:</label>
+  <input type="date" id="dataNascita">
+
+  <button onclick="mostraAnagrafica()">Mostra Anagrafica</button>
+
+  <div id="risultato"></div>
+
+  <script>
+    function mostraAnagrafica() {
+      let nome = document.getElementById("nome").value;
+      let cognome = document.getElementById("cognome").value;
+      let indirizzo = document.getElementById("indirizzo").value;
+      let citta = document.getElementById("citta").value;
+      let cap = document.getElementById("cap").value;
+      let dataNascita = document.getElementById("dataNascita").value;
+
+      if (!dataNascita) {
+        alert("Inserisci una data di nascita!");
+        return;
+      }
+
+      let annoNascita = new Date(dataNascita).getFullYear();
+      let annoAttuale = new Date().getFullYear();
+      let eta = annoAttuale - annoNascita;
+
+      let generazione = "";
+
+      if (annoNascita >= 2013) generazione = "Generazione Alpha";
+      else if (annoNascita >= 1997) generazione = "Generazione Z";
+      else if (annoNascita >= 1981) generazione = "Millennials";
+      else if (annoNascita >= 1965) generazione = "Generazione X";
+      else if (annoNascita >= 1946) generazione = "Baby Boomers";
+      else if (annoNascita >= 1928) generazione = "Generazione Silenziosa";
+      else if (annoNascita >= 1901) generazione = "Greatest Generation";
+      else generazione = "Precedente alla Greatest Generation";
+
+      document.getElementById("risultato").innerHTML = `
+        <h3>Anagrafica Utente</h3>
+        <p><b>Nome:</b> ${nome}</p>
+        <p><b>Cognome:</b> ${cognome}</p>
+        <p><b>Indirizzo:</b> ${indirizzo}</p>
+        <p><b>Città:</b> ${citta}</p>
+        <p><b>CAP:</b> ${cap}</p>
+        <p><b>Anno di nascita:</b> ${annoNascita}</p>
+        <p><b>Età:</b> ${eta} anni</p>
+        <p><b>Generazione:</b> ${generazione}</p>
+      `;
+    }
+  </script>
+
+</body>
+</html>
