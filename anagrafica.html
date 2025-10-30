@@ -2,7 +2,66 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Dati dinamici</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e9f9ec; /* verde chiaro di sfondo */
+      color: #003300;
+      padding: 30px;
+    }
+
+    h2 {
+      color: #006600;
+    }
+
+    input {
+      border: 2px solid #009933;
+      border-radius: 5px;
+      padding: 5px;
+      margin-bottom: 10px;
+      width: 250px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #00cc44;
+      box-shadow: 0 0 5px #00cc44;
+    }
+
+    button {
+      background-color: #009933;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #00cc44;
+      transform: scale(1.05);
+    }
+
+    #contenitore {
+      border: 2px solid #006600;
+      background-color: #ccffcc;
+      padding: 15px;
+      width: 300px;
+      float: right;
+      border-radius: 8px;
+      box-shadow: 2px 2px 10px rgba(0, 100, 0, 0.2);
+    }
+
+    h3 {
+      color: #004d00;
+      text-align: center;
+    }
+
+    #risultato {
+      font-size: 16px;
+    }
+  </style>
 </head>
 <body>
 
@@ -14,8 +73,8 @@
 
   <button onclick="mostra()">Mostra dati</button>
 
-  <div id="contenitore" style="border:1px solid black; padding:10px; width:300px; float:right;">
-    <h3>Dati inseriti:</h3>
+  <div id="contenitore">
+    <h3>Dati inseriti</h3>
     <p id="risultato"></p>
   </div>
 
@@ -24,11 +83,6 @@
       let nome = document.getElementById("nome").value;
       let cognome = document.getElementById("cognome").value;
       let indirizzo = document.getElementById("indirizzo").value;
-
-      document.getElementById("risultato").innerHTML =
-        "Nome: " + nome + "<br>" +
-        "Cognome: " + cognome + "<br>" +
-        "Indirizzo: " + indirizzo;
     }
   </script>
 
