@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <title>Dati dinamici - Verde Kong</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -83,6 +84,11 @@
       let nome = document.getElementById("nome").value;
       let cognome = document.getElementById("cognome").value;
       let indirizzo = document.getElementById("indirizzo").value;
+
+      document.getElementById("risultato").innerHTML =
+        " <b>Nome:</b> " + nome + "<br>" +
+        " <b>Cognome:</b> " + cognome + "<br>" +
+        " <b>Indirizzo:</b> " + indirizzo;
     }
   </script>
 
