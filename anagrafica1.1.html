@@ -2,32 +2,74 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>Anagrafica Utente</title>
+  <title>Anagrafica Utente - Tema Rosso</title>
   <style>
     body {
-      font-family: Arial;
+      font-family: Arial, sans-serif;
+      background-color: #fff0f0; /* sfondo rosato chiaro */
       margin: 40px;
+      color: #330000;
     }
+
+    h2 {
+      color: #b30000;
+    }
+
+    label {
+      font-weight: bold;
+      color: #660000;
+    }
+
     input {
       display: block;
       margin-bottom: 10px;
-      padding: 5px;
+      padding: 6px;
+      border: 2px solid #cc0000;
+      border-radius: 5px;
+      width: 250px;
     }
+
+    input:focus {
+      outline: none;
+      border-color: #ff3333;
+      box-shadow: 0 0 6px #ff3333;
+    }
+
     button {
       margin-top: 10px;
-      padding: 8px 12px;
+      padding: 10px 15px;
+      background-color: #cc0000;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
     }
+
+    button:hover {
+      background-color: #ff0000;
+      transform: scale(1.05);
+    }
+
     #risultato {
-      margin-top: 20px;
-      border: 1px solid #333;
-      padding: 10px;
-      width: 350px;
+      margin-top: 25px;
+      border: 2px solid #990000;
+      background-color: #ffe5e5;
+      padding: 15px;
+      width: 380px;
+      border-radius: 8px;
+      box-shadow: 2px 2px 10px rgba(153, 0, 0, 0.2);
+    }
+
+    h3 {
+      color: #800000;
+      text-align: center;
     }
   </style>
 </head>
 <body>
 
-  <h2>Inserisci i dati dell'utente</h2>
+  <h2>Inserisci i dati dell'utente </h2>
 
   <label>Nome:</label>
   <input type="text" id="nome">
@@ -81,7 +123,7 @@
       else generazione = "Precedente alla Greatest Generation";
 
       document.getElementById("risultato").innerHTML = `
-        <h3>Anagrafica Utente</h3>
+        <h3> Anagrafica Utente</h3>
         <p><b>Nome:</b> ${nome}</p>
         <p><b>Cognome:</b> ${cognome}</p>
         <p><b>Indirizzo:</b> ${indirizzo}</p>
@@ -96,3 +138,4 @@
 
 </body>
 </html>
+
