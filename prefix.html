@@ -6,56 +6,94 @@
 <style>
     body {
         font-family: Arial, sans-serif;
-        background-color: #f9f9f9;
+        background-color: #0033cc;
+        color: white; 
         padding: 30px;
     }
-    input, button {
-        font-size: 16px;
-        padding: 6px 10px;
-    }
-    .mask {
-        font-family: monospace;
+    label, input, button {
         font-size: 18px;
-        margin-top: 20px;
+        margin: 5px 0;
     }
-    .bit1 {
-        color: blue;
+    input {
+        width: 80px;
+        padding: 5px;
+        text-align: center;
+        border: none;
+        border-radius: 4px;
+    }
+ 
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+    button {
+        padding: 6px 12px;
+        cursor: pointer;
+        background-color: white;
+        color: #0033cc;
+        border: none;
+        border-radius: 4px;
         font-weight: bold;
+    }
+    button:hover {
+        background-color: #e0e0e0;
+    }
+
+    #output {
+        margin-top: 20px;
+        font-family: monospace;
+        font-size: 22px;
+        color: white; 
     }
 </style>
 </head>
 <body>
 
-<h2>Generatore di Subnet Mask in Binario</h2>
+<h2>Generatore Subnet Mask (binario)</h2>
 
-<label for="prefix">Inserisci prefix number (es. 24): </label>
-<input type="number" id="prefix" min="0" max="32">
-<button onclick="generaMask()">Genera Mask</button>
+<label for="prefix">Inserisci prefix number:</label>
+<input type="number" id="prefix" min="0" max="32" placeholder="es. 24">
+<button onclick="generaMask()">Genera</button>
 
-<div id="output" class="mask"></div>
+<div id="output"></div>
 
 <script>
 function generaMask() {
     const prefix = parseInt(document.getElementById('prefix').value);
+    const output = document.getElementById('output');
+
     if (isNaN(prefix) || prefix < 0 || prefix > 32) {
-        document.getElementById('output').innerHTML = "Inserisci un valore tra 0 e 32.";
+        output.innerHTML = "Inserisci un numero compreso tra 0 e 32.";
         return;
     }
 
-    let binMask = "";
-    for (let i = 0; i < 32; i++) {
-        if (i < prefix) {
-            binMask += "<span class='bit1'>1</span>";
+    const fullOctets = Math.floor(prefix / 8);
+    const remainder = prefix % 8;
+
+    let mask = [];
+
+    for (let i = 0; i < 4; i++) {
+        let octet = "";
+
+        if (i < fullOctets) {
+            octet = "11111111";
+        } else if (i === fullOctets && remainder > 0) {
+            octet = "1".repeat(remainder) + "0".repeat(8 - remainder);
         } else {
-            binMask += "0";
+            octet = "00000000";
         }
-        if ((i + 1) % 8 === 0 && i < 31) binMask += ".";
+
+        mask.push(octet);
     }
 
-    document.getElementById('output').innerHTML = binMask;
+    output.innerHTML = mask.join(".");
 }
 </script>
 
 </body>
 </html>
-
