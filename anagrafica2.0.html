@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Dati dinamici - Verde Kong</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e9f9ec;
+      color: #003300;
+      padding: 30px;
+    }
+
+    h2 { color: #006600; }
+
+    input, select {
+      border: 2px solid #009933;
+      border-radius: 5px;
+      padding: 5px;
+      margin-bottom: 10px;
+      width: 250px;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #00cc44;
+      box-shadow: 0 0 5px #00cc44;
+    }
+
+    button {
+      background-color: #009933;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    #contenitore {
+      border: 2px solid #006600;
+      background-color: #ccffcc;
+      padding: 15px;
+      width: 300px;
+      float: right;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Inserisci i tuoi dati</h2>
+
+  Nome: <input type="text" id="nome"><br>
+  Cognome: <input type="text" id="cognome"><br>
+  Indirizzo: <input type="text" id="indirizzo"><br>
+
+  <b>Sesso:</b><br>
+  <input type="radio" name="sesso" value="Maschio"> Maschio<br>
+  <input type="radio" name="sesso" value="Femmina"> Femmina<br>
+  <input type="radio" name="sesso" value="Altro"> Altro<br><br>
+
+  <b>Veicoli posseduti:</b><br>
+  <input type="checkbox" class="veicolo" value="Auto"> Auto<br>
+  <input type="checkbox" class="veicolo" value="Moto"> Moto<br>
+  <input type="checkbox" class="veicolo" value="Bicicletta"> Bicicletta<br>
+  <input type="checkbox" class="veicolo" value="Monopattino"> Monopattino<br><br>
+
+  <b>Provincia:</b><br>
+  <select id="provincia">
+    <option value="NA">Napoli</option>
+    <option value="RM">Roma</option>
+    <option value="MI">Milano</option>
+    <option value="TO">Torino</option>
+    <option value="PA">Palermo</option>
+  </select><br><br>
+
+  <b>Sport praticati:</b><br>
+  <input type="checkbox" class="sport" value="Calcio"> Calcio<br>
+  <input type="checkbox" class="sport" value="Basket"> Basket<br>
+  <input type="checkbox" class="sport" value="Pallavolo"> Pallavolo<br>
+  <input type="checkbox" class="sport" value="Tennis"> Tennis<br>
+  <input type="checkbox" class="sport" value="Biliardo"> Biliardo<br><br>
+
+  <button onclick="mostra()">Mostra dati</button>
+
+  <div id="contenitore">
+    <h3>Dati inseriti</h3>
+    <p id="risultato"></p>
+  </div>
+
+  <script>
+    function mostra() {
+      let nome = document.getElementById("nome").value;
+      let cognome = document.getElementById("cognome").value;
+      let indirizzo = document.getElementById("indirizzo").value;
+
+      let sesso = document.querySelector("input[name='sesso']:checked");
+      sesso = sesso ? sesso.value : "Non specificato";
+
+      let veicoli = [];
+      document.querySelectorAll(".veicolo:checked").forEach(v => veicoli.push(v.value));
+
+      let provincia = document.getElementById("provincia").value;
+
+      let sport = [];
+      document.querySelectorAll(".sport:checked").forEach(s => sport.push(s.value));
+
+      document.getElementById("risultato").innerHTML =
+        "<b>Nome:</b> " + nome + "<br>" +
+        "<b>Cognome:</b> " + cognome + "<br>" +
+        "<b>Indirizzo:</b> " + indirizzo + "<br>" +
+        "<b>Sesso:</b> " + sesso + "<br>" +
+        "<b>Veicoli:</b> " + (veicoli.length ? veicoli.join(', ') : "Nessuno") + "<br>" +
+        "<b>Provincia:</b> " + provincia + "<br>" +
+        "<b>Sport:</b> " + (sport.length ? sport.join(', ') : "Nessuno");
+    }
+  </script>
+
+</body>
+</html>
