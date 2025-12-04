@@ -97,7 +97,7 @@
           listaVeicoli += veicoli[i].value + " ";
         }
       }
-      if (listaVeicoli === "") listaVeicoli = "Nessuno";
+      if (listaVeicoli == "") {listaVeicoli = "Nessuno"};
 
       var provincia = document.getElementById("provincia").value;
 
@@ -108,7 +108,7 @@
           listaSport += sport[i].value + " ";
         }
       }
-      if (listaSport === "") listaSport = "Nessuno";
+      if (listaSport == "") {listaSport = "Nessuno"};
 
       document.getElementById("output").innerHTML =
         "<h3>Dati inseriti:</h3>" +
