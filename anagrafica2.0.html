@@ -1,121 +1,177 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Dati dinamici - Verde Kong</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #e9f9ec;
-      color: #003300;
-      padding: 30px;
+      background-color: #3a5fcd;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 50px;
+      color: #ffffff;
     }
 
-    h2 { color: #006600; }
-
-    input, select {
-      border: 2px solid #009933;
-      border-radius: 5px;
-      padding: 5px;
-      margin-bottom: 10px;
-      width: 250px;
+    h2 {
+      color: #dddddd;
+      text-align: center;
+      margin-bottom: 20px;
     }
 
-    input:focus, select:focus {
-      outline: none;
-      border-color: #00cc44;
-      box-shadow: 0 0 5px #00cc44;
+    .box {
+      background-color: #1e90ff;
+      padding: 25px;
+      border-radius: 4px;
+      width: 500px;
+      text-align: left;
+      border: 1px solid #104e8b; 
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      color: #ffffff; 
     }
 
-    button {
-      background-color: #009933;
-      color: white;
+    input[type="text"], select {
+      width: 92%;
+      padding: 6px;
+      margin: 8px 0;
+      border: 1px solid #666666;
+      border-radius: 3px;
+      background-color: #cfcfcf;
+      color: #222222;
+      font-size: 14px;
+    }
+
+    input[type="radio"], input[type="checkbox"] {
+      accent-color: #444444;
+      margin-right: 5px;
+    }
+
+    input[type="button"] {
+      background-color: #555555;
+      color: #ffffff;
       border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
+      padding: 9px 18px;
+      border-radius: 3px;
       cursor: pointer;
-      font-weight: bold;
+      font-size: 14px;
+      margin-top: 12px;
     }
 
-    #contenitore {
-      border: 2px solid #006600;
-      background-color: #ccffcc;
-      padding: 15px;
-      width: 300px;
-      float: right;
-      border-radius: 8px;
+    input[type="button"]:hover {
+      background-color: #777777;
+    }
+
+    #output {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #222222;
+      background-color: #d9d9d9;
+      padding: 12px;
+      border-radius: 4px;
+      width: 500px;
+      border: 1px solid #b2b2b2;
+    }
+
+    b {
+      color: #333333;
     }
   </style>
-</head>
-<body>
-
-  <h2>Inserisci i tuoi dati</h2>
-
-  Nome: <input type="text" id="nome"><br>
-  Cognome: <input type="text" id="cognome"><br>
-  Indirizzo: <input type="text" id="indirizzo"><br>
-
-  <b>Sesso:</b><br>
-  <input type="radio" name="sesso" value="Maschio"> Maschio<br>
-  <input type="radio" name="sesso" value="Femmina"> Femmina<br>
-  <input type="radio" name="sesso" value="Altro"> Altro<br><br>
-
-  <b>Veicoli posseduti:</b><br>
-  <input type="checkbox" class="veicolo" value="Auto"> Auto<br>
-  <input type="checkbox" class="veicolo" value="Moto"> Moto<br>
-  <input type="checkbox" class="veicolo" value="Bicicletta"> Bicicletta<br>
-  <input type="checkbox" class="veicolo" value="Monopattino"> Monopattino<br><br>
-
-  <b>Provincia:</b><br>
-  <select id="provincia">
-    <option value="NA">Napoli</option>
-    <option value="RM">Roma</option>
-    <option value="MI">Milano</option>
-    <option value="TO">Torino</option>
-    <option value="PA">Palermo</option>
-  </select><br><br>
-
-  <b>Sport praticati:</b><br>
-  <input type="checkbox" class="sport" value="Calcio"> Calcio<br>
-  <input type="checkbox" class="sport" value="Basket"> Basket<br>
-  <input type="checkbox" class="sport" value="Pallavolo"> Pallavolo<br>
-  <input type="checkbox" class="sport" value="Tennis"> Tennis<br>
-  <input type="checkbox" class="sport" value="Biliardo"> Biliardo<br><br>
-
-  <button onclick="mostra()">Mostra dati</button>
-
-  <div id="contenitore">
-    <h3>Dati inseriti</h3>
-    <p id="risultato"></p>
-  </div>
 
   <script>
-    function mostra() {
-      let nome = document.getElementById("nome").value;
-      let cognome = document.getElementById("cognome").value;
-      let indirizzo = document.getElementById("indirizzo").value;
+    function stampa() {
+      var nome = document.getElementById("nome").value;
+      var cognome = document.getElementById("cognome").value;
+      var indirizzo = document.getElementById("indirizzo").value;
 
-      let sesso = document.querySelector("input[name='sesso']:checked");
-      sesso = sesso ? sesso.value : "Non specificato";
+      var sesso = "Non specificato";
+      var radios = document.getElementsByName("sesso");
+      for (var i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+          sesso = radios[i].value;
+        }
+      }
 
-      let veicoli = [];
-      document.querySelectorAll(".veicolo:checked").forEach(v => veicoli.push(v.value));
+      var veicoli = document.getElementsByName("veicolo");
+      var listaVeicoli = "";
+      for (var i = 0; i < veicoli.length; i++) {
+        if (veicoli[i].checked) {
+          listaVeicoli += veicoli[i].value + " ";
+        }
+      }
+      if (listaVeicoli === "") listaVeicoli = "Nessuno";
 
-      let provincia = document.getElementById("provincia").value;
+      var provincia = document.getElementById("provincia").value;
 
-      let sport = [];
-      document.querySelectorAll(".sport:checked").forEach(s => sport.push(s.value));
+      var sport = document.getElementsByName("sport");
+      var listaSport = "";
+      for (var i = 0; i < sport.length; i++) {
+        if (sport[i].checked) {
+          listaSport += sport[i].value + " ";
+        }
+      }
+      if (listaSport === "") listaSport = "Nessuno";
 
-      document.getElementById("risultato").innerHTML =
-        "<b>Nome:</b> " + nome + "<br>" +
-        "<b>Cognome:</b> " + cognome + "<br>" +
-        "<b>Indirizzo:</b> " + indirizzo + "<br>" +
-        "<b>Sesso:</b> " + sesso + "<br>" +
-        "<b>Veicoli:</b> " + (veicoli.length ? veicoli.join(', ') : "Nessuno") + "<br>" +
-        "<b>Provincia:</b> " + provincia + "<br>" +
-        "<b>Sport:</b> " + (sport.length ? sport.join(', ') : "Nessuno");
+      document.getElementById("output").innerHTML =
+        "<h3>Dati inseriti:</h3>" +
+        "<p><b>Nome:</b> " + nome + "</p>" +
+        "<p><b>Cognome:</b> " + cognome + "</p>" +
+        "<p><b>Indirizzo:</b> " + indirizzo + "</p>" +
+        "<p><b>Sesso:</b> " + sesso + "</p>" +
+        "<p><b>Veicolo posseduto:</b> " + listaVeicoli + "</p>" +
+        "<p><b>Provincia:</b> " + provincia + "</p>" +
+        "<p><b>Sport praticati:</b> " + listaSport + "</p>";
     }
   </script>
+</head>
+
+<body>
+
+  <div class="box">
+    <h2>Modulo dati personali</h2>
+
+    <b>Nome:</b><br>
+    <input type="text" id="nome">
+
+    <b>Cognome:</b><br>
+    <input type="text" id="cognome">
+
+    <b>Indirizzo:</b><br>
+    <input type="text" id="indirizzo">
+
+    <b>Sesso:</b><br>
+    <input type="radio" name="sesso" value="Maschio"> Maschio<br>
+    <input type="radio" name="sesso" value="Femmina"> Femmina<br>
+    <input type="radio" name="sesso" value="Altro"> Altro<br><br>
+
+    <b>Veicoli posseduti:</b><br>
+    <input type="checkbox" name="veicolo" value="Auto"> Auto<br>
+    <input type="checkbox" name="veicolo" value="Moto"> Moto<br>
+    <input type="checkbox" name="veicolo" value="Bicicletta"> Bicicletta<br>
+    <input type="checkbox" name="veicolo" value="Monopattino"> Monopattino<br>
+    <input type="checkbox" name="veicolo" value="Scooter"> Scooter<br>
+    <input type="checkbox" name="veicolo" value="Barca"> Barca<br><br>
+
+    <b>Provincia:</b><br>
+    <select id="provincia">
+      <option value="MI">Milano</option>
+      <option value="LC">Lecco</option>
+      <option value="CO">Como</option>
+      <option value="LO">Lodi</option>
+      <option value="BS">Brescia</option>
+    </select><br><br>
+
+    <b>Sport praticati:</b><br>
+    <input type="checkbox" name="sport" value="Calcio"> Calcio<br>
+    <input type="checkbox" name="sport" value="Basket"> Basket<br>
+    <input type="checkbox" name="sport" value="Pallavolo"> Pallavolo<br>
+    <input type="checkbox" name="sport" value="Tennis"> Tennis<br>
+    <input type="checkbox" name="sport" value="Biliardo"> Biliardo<br>
+    <input type="checkbox" name="sport" value="Atletica"> Atletica<br>
+    <input type="checkbox" name="sport" value="Rugby"> Rugby<br><br>
+
+    <input type="button" value="OK" onclick="stampa()">
+  </div>
+
+  <div id="output"></div>
 
 </body>
 </html>
