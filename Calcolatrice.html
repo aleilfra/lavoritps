@@ -28,6 +28,7 @@
 
 <input type="text" id="display" readonly><br><br>
 
+<!-- Numeri e operatori -->
 <button onclick="aggiungi('7')">7</button>
 <button onclick="aggiungi('8')">8</button>
 <button onclick="aggiungi('9')">9</button>
@@ -48,6 +49,7 @@
 <button onclick="calcola()">=</button>
 <button onclick="operatore('+')">+</button><br><br>
 
+<!-- Funzioni -->
 <button onclick="potenza()">x²</button>
 <button onclick="radice()">√</button>
 <button onclick="percentuale()">%</button><br>
@@ -56,16 +58,11 @@
 <button onclick="coseno()">cos</button>
 <button onclick="tangente()">tan</button><br><br>
 
-<button onclick="memoriaAdd()">M+</button>
-<button onclick="memoriaRead()">MR</button>
-<button onclick="memoriaClear()">MC</button><br><br>
-
 <button onclick="reset()">C</button>
 
 <script>
     let display = document.getElementById("display");
-    let vettore = [];
-    let memoria = 0;
+    let vettore = []; 
 
     function aggiungi(valore) {
         display.value += valore;
@@ -124,18 +121,6 @@
     function tangente() {
         let x = parseFloat(display.value);
         display.value = Math.tan(x);
-    }
-
-    function memoriaAdd() {
-        memoria += parseFloat(display.value);
-    }
-
-    function memoriaRead() {
-        display.value = memoria;
-    }
-
-    function memoriaClear() {
-        memoria = 0;
     }
 
     function reset() {
