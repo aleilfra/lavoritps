@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Calcolatrice</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+        }
+        input {
+            width: 200px;
+            height: 30px;
+            font-size: 18px;
+            text-align: right;
+        }
+        button {
+            width: 45px;
+            height: 40px;
+            margin: 2px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Calcolatrice</h2>
+
+<input type="text" id="display" readonly><br><br>
+
+<button onclick="aggiungi('7')">7</button>
+<button onclick="aggiungi('8')">8</button>
+<button onclick="aggiungi('9')">9</button>
+<button onclick="operatore('/')">/</button><br>
+
+<button onclick="aggiungi('4')">4</button>
+<button onclick="aggiungi('5')">5</button>
+<button onclick="aggiungi('6')">6</button>
+<button onclick="operatore('*')">*</button><br>
+
+<button onclick="aggiungi('1')">1</button>
+<button onclick="aggiungi('2')">2</button>
+<button onclick="aggiungi('3')">3</button>
+<button onclick="operatore('-')">-</button><br>
+
+<button onclick="aggiungi('0')">0</button>
+<button onclick="aggiungi('.')">.</button>
+<button onclick="calcola()">=</button>
+<button onclick="operatore('+')">+</button><br><br>
+
+<button onclick="potenza()">x²</button>
+<button onclick="radice()">√</button>
+<button onclick="percentuale()">%</button><br>
+
+<button onclick="seno()">sin</button>
+<button onclick="coseno()">cos</button>
+<button onclick="tangente()">tan</button><br><br>
+
+<button onclick="memoriaAdd()">M+</button>
+<button onclick="memoriaRead()">MR</button>
+<button onclick="memoriaClear()">MC</button><br><br>
+
+<button onclick="reset()">C</button>
+
+<script>
+    let display = document.getElementById("display");
+    let vettore = [];
+    let memoria = 0;
+
+    function aggiungi(valore) {
+        display.value += valore;
+    }
+
+    function operatore(op) {
+        vettore.push(parseFloat(display.value));
+        vettore.push(op);
+        display.value = "";
+    }
+
+    function calcola() {
+        vettore.push(parseFloat(display.value));
+
+        let risultato = vettore[0];
+
+        for (let i = 1; i < vettore.length; i += 2) {
+            let op = vettore[i];
+            let num = vettore[i + 1];
+
+            if (op == "+") risultato += num;
+            if (op == "-") risultato -= num;
+            if (op == "*") risultato *= num;
+            if (op == "/") risultato /= num;
+        }
+
+        display.value = risultato;
+        vettore = [];
+    }
+
+    function potenza() {
+        let x = parseFloat(display.value);
+        display.value = Math.pow(x, 2);
+    }
+
+    function radice() {
+        let x = parseFloat(display.value);
+        display.value = Math.sqrt(x);
+    }
+
+    function percentuale() {
+        let x = parseFloat(display.value);
+        display.value = x / 100;
+    }
+
+    function seno() {
+        let x = parseFloat(display.value);
+        display.value = Math.sin(x);
+    }
+
+    function coseno() {
+        let x = parseFloat(display.value);
+        display.value = Math.cos(x);
+    }
+
+    function tangente() {
+        let x = parseFloat(display.value);
+        display.value = Math.tan(x);
+    }
+
+    function memoriaAdd() {
+        memoria += parseFloat(display.value);
+    }
+
+    function memoriaRead() {
+        display.value = memoria;
+    }
+
+    function memoriaClear() {
+        memoria = 0;
+    }
+
+    function reset() {
+        display.value = "";
+        vettore = [];
+    }
+</script>
+
+</body>
+</html>
