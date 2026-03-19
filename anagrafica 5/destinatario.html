@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Stampa Anagrafica</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+
+<h1>ELENCO PERSONE</h1>
+
+<table border="1">
+    <tr>
+        <th>Nome</th>
+        <th>Cognome</th>
+        <th>Anno nascita</th>
+        <th>Regione</th>
+        <th>CAP</th>
+        <th>Email</th>
+        <th>Genere</th>
+        <th>Mezzi posseduti</th>
+        <th>Sport</th>
+    </tr>
+</table>
+
+<script>
+let tab = document.getElementsByTagName("table")[0];
+let elenco = JSON.parse(localStorage.getItem("elenco"));
+
+if (elenco != null) {
+    for (let i = 0; i < elenco.length; i++) {
+        let tr = document.createElement("tr");
+
+        tr.innerHTML = `
+            <td>${elenco[i].nome}</td>
+            <td>${elenco[i].cognome}</td>
+            <td>${elenco[i].nascita}</td>
+            <td>${elenco[i].regione}</td>
+            <td>${elenco[i].cap}</td>
+            <td>${elenco[i].email}</td>
+            <td>${elenco[i].genere}</td>
+            <td>${elenco[i].mezzi.join(", ")}</td>
+            <td>${elenco[i].sport.join(", ")}</td>
+        `;
+
+        tab.appendChild(tr);
+    }
+}
+</script>
+
+</body>
+</html>
