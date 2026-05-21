@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atheltica Sky - Speed & Fly</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent-blue: #0ea5e9; /* Azzurro brillante */
+            --dark-blue: #0369a1;   /* Blu per hover */
+            --bg-light: #f8fafc;    /* Bianco sporco/ghiaccio */
+            --pure-white: #ffffff;
+            --text-main: #1e293b;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            font-family: 'Montserrat', sans-serif;
+            padding: 20px;
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        .store-header {
+            max-width: 1200px;
+            margin: 0 auto 40px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--pure-white);
+            padding: 20px 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        h2 {
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            color: var(--accent-blue);
+            margin: 0;
+        }
+
+        .upload-container {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        input[type="file"] {
+            border: 1px solid #e2e8f0;
+            padding: 5px;
+            border-radius: 8px;
+            font-size: 12px;
+        }
+
+        #contenitore {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto 50px auto;
+        }
+
+        .blocco {
+            background: var(--pure-white);
+            border-radius: 20px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            border: 1px solid #f1f5f9;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .blocco:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(14, 165, 233, 0.1);
+            border-color: var(--accent-blue);
+        }
+
+        .blocco img {
+            width: 100%;
+            height: 160px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            background: #f1f5f9;
+        }
+
+        .product-info b {
+            font-size: 20px;
+            color: var(--text-main);
+        }
+
+        .product-model {
+            color: var(--accent-blue);
+            font-weight: 600;
+            font-size: 14px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            cursor: pointer;
+            width: 100%;
+            padding: 12px;
+            font-weight: 600;
+            border-radius: 10px;
+            border: none;
+            transition: 0.2s;
+        }
+
+        .btn-detail {
+            background: #f1f5f9;
+            color: #475569;
+            margin-bottom: 8px;
+        }
+
+        .btn-add {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .btn-add:hover {
+            background: var(--dark-blue);
+        }
+
+        #area-carrello {
+            background: var(--pure-white);
+            padding: 30px;
+            max-width: 500px;
+            margin: 40px auto;
+            border-radius: 24px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .total-wrapper {
+            font-weight: 800;
+            font-size: 22px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-main);
+        }
+
+        #lista-carrello p {
+            background: #f8fafc;
+            padding: 10px 15px;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-blue);
+            font-size: 14px;
+        }
+
+        
+        .info-box {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 450px;
+            background: white;
+            padding: 30px;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            z-index: 100;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="store-header">
+    <h2>ATHLETICA<span>SKY</span></h2>
+    <div class="upload-container">
+        <label>Listino CSV: </label>
+        <input type="file" id="inputDati" accept=".csv">
+    </div>
+</div>
+
+<div id="contenitore"></div>
+<div id="finestra" class="info-box"></div>
+
+<div id="area-carrello">
+    <h3 style="margin-top:0; color: var(--accent-blue);">Il tuo Carrello</h3>
+    <div id="lista-carrello"></div>
+    <div class="total-wrapper">
+        <span>TOTALE:</span>
+        <span><span id="euro">0.00</span> €</span>
+    </div>
+    <button class="btn-add" onclick="calcola_totale(0,0,'')">Aggiorna Carrello</button>
+    <button id="btn-stampa" class="btn-detail" onclick="genera_pdf_jspdf()" style="display:none; margin-top:10px; background: #e0f2fe; color: var(--dark-blue);">Scarica Preventivo PDF</button>
+</div>
+
+<script>
+
+var elenco_prod = [];
+var carrello = [];
+
+document.getElementById("inputDati").addEventListener("change", function(e){
+    var lettore = new FileReader();
+    lettore.onload = function(evento){
+        var testo = evento.target.result;
+        var righe = testo.replace(/\r/g, "").split("\n");
+        elenco_prod = [];
+        document.getElementById("contenitore").innerHTML = "";
+        carica_dati(righe, 1); 
+    };
+    lettore.readAsText(e.target.files[0]);
+});
+
+function carica_dati(righe, i){
+    if(i >= righe.length){
+        disegna_tutto(0);
+        return;
+    }
+    var colonne = righe[i].split(";");
+    if(colonne.length >= 5 && colonne[0] != ""){
+        elenco_prod.push({
+            m: colonne[0].trim(),
+            mo: colonne[1].trim(),
+            de: colonne[2].trim(),
+            im: colonne[3].trim(),
+            pr: colonne[4].trim()
+        });
+    }
+    carica_dati(righe, i + 1);
+}
+
+function disegna_tutto(pos){
+    if(pos >= elenco_prod.length) return;
+    var cont = document.getElementById("contenitore");
+    var div = document.createElement("div");
+    div.className = "blocco";
+    div.innerHTML = `<img src="${elenco_prod[pos].im}" onerror="this.src='https://via.placeholder.com/200x150/e0f2fe/0ea5e9?text=Atletica'">
+                    <div class='product-info'>
+                        <p><b>${elenco_prod[pos].m}</b></p>
+                        <p class='product-model'>${elenco_prod[pos].mo}</p>
+                        <p style="font-size:12px; color:#64748b; margin-bottom:15px;">Uso: ${elenco_prod[pos].de}</p>
+                    </div>
+                    <button class='btn-detail' onclick='apri(${pos})'>Info Tecnica</button>
+                    <button class='btn-add' onclick='metti_nel_carrello(${pos})'>Aggiungi</button>`;
+    cont.appendChild(div);
+    disegna_tutto(pos + 1);
+}
+
+function apri(id){
+    var f = document.getElementById("finestra");
+    f.style.display = "block";
+    f.innerHTML = `<h3 style="color:var(--accent-blue)">${elenco_prod[id].m} ${elenco_prod[id].mo}</h3>
+                  <p>Specialità: ${elenco_prod[id].de}</p>
+                  <p style='font-weight:700; font-size:24px;'>€ ${elenco_prod[id].pr}</p>
+                  <button class='btn-add' onclick='this.parentElement.style.display="none"'>Chiudi</button>`;
+}
+
+function metti_nel_carrello(id){
+    carrello.push(elenco_prod[id]);
+}
+
+function calcola_totale(n, tot, stringa){
+    if(n >= carrello.length){
+        document.getElementById("lista-carrello").innerHTML = stringa;
+        document.getElementById("euro").innerText = tot.toFixed(2);
+        document.getElementById("btn-stampa").style.display = "block";
+        return;
+    }
+    var p = parseFloat(carrello[n].pr.replace(",", "."));
+    var riga = `<p><span>${carrello[n].mo}</span> - <b>${carrello[n].pr} €</b></p>`;
+    calcola_totale(n + 1, tot + p, stringa + riga);
+}
+
+function genera_pdf_jspdf(){
+    var doc = new jsPDF();
+    doc.setTextColor(14, 165, 233);
+    doc.text("ATHLETICA SKY - PREVENTIVO", 15, 20);
+    doc.setTextColor(0, 0, 0);
+    doc.text("---------------------------------------", 15, 27);
+    scrivi_righe_pdf(doc, 0, 35);
+}
+
+function scrivi_righe_pdf(doc, n, y){
+    if(n >= carrello.length){
+        doc.text("---------------------------------------", 15, y);
+        doc.text("TOTALE ORDINE: " + document.getElementById("euro").innerText + " EUR", 15, y + 10);
+        doc.save("preventivo_atletica.pdf");
+        return;
+    }
+    doc.text(carrello[n].m + " " + carrello[n].mo + " : " + carrello[n].pr + " EUR", 15, y);
+    scrivi_righe_pdf(doc, n + 1, y + 10);
+}
+</script>
+</body>
+</html>
