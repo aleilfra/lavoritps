@@ -1,0 +1,70 @@
+
+<!DOCTYPE HTML>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Tabella Andamento Nazionale COVID-19</title>
+
+    <style type="text/css">
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 20px;
+            background-color: #f4f8fc;
+            color: #263445;
+        }
+
+        h2 {
+            color: #1769aa;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 15px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        th, td {
+            border: 1px solid #d6e4f0;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #1976d2;
+            color: #ffffff;
+        }
+
+        tr.pari {
+            background-color: #edf5fc;
+        }
+
+        tr:hover {
+            background-color: #dceeff;
+        }
+
+        #dati-container {
+            margin-top: 15px;
+            overflow-x: auto;
+            border-radius: 8px;
+        }
+
+        .errore {
+            color: #d32f2f;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Tabella Andamento Nazionale COVID-19</h2>
+
+    <div id="dati-container">Caricamento dati in corso...</div>
+
+    <script type="text/javascript">
