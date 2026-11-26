@@ -2,7 +2,7 @@ var cambi = new XMLHttpRequest();
 
 var tassi = {};
 
-cambi.open("GET", "eurofxref-daily.xml", true);
+cambi.open("GET", "valute.html", true);
 
 cambi.onreadystatechange = function() {
 
