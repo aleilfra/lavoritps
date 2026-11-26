@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scelta valuta</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background-color: lightgray;
+        }
+
+        .contenitore {
+            background-color: white;
+            width: 350px;
+            margin: 100px auto;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            color: blue;
+        }
+
+        select, button {
+            width: 90%;
+            padding: 10px;
+            margin: 10px;
+        }
+
+        button {
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="contenitore">
+
+    <h1>Seleziona la valuta</h1>
+
+    <p>Scegli la divisa:</p>
+
+    <select id="valuta">
+        <option value="EUR">Euro</option>
+        <option value="USD">Dollaro americano</option>
+        <option value="GBP">Sterlina inglese</option>
+        <option value="CHF">Franco svizzero</option>
+        <option value="JPY">Yen giapponese</option>
+        <option value="CAD">Dollaro canadese</option>
+        <option value="AUD">Dollaro australiano</option>
+        <option value="CNY">Yuan cinese</option>
+        <option value="SEK">Corona svedese</option>
+        <option value="NOK">Corona norvegese</option>
+        <option value="DKK">Corona danese</option>
+        <option value="PLN">Zloty polacco</option>
+        <option value="INR">Rupia indiana</option>
+    </select>
+
+    <br>
+
+    <button onclick="scegliValuta()">Conferma</button>
+
+</div>
+
+<script>
+
+    function scegliValuta() {
+
+        var valuta = document.getElementById("valuta").value;
+
+        window.location.href = "index.html?valuta=" + valuta;
+
+    }
+
+</script>
+
+</body>
+</html>
